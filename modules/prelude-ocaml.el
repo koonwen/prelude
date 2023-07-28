@@ -63,7 +63,8 @@
   (setq merlin-error-after-save nil)
 
   ;; Enable Flycheck checker
-  (flycheck-ocaml-setup))
+  ;; (flycheck-ocaml-setup))
+)
 
 (add-hook 'tuareg-mode-hook #'utop-minor-mode)
 (add-hook 'tuareg-mode-hook #'merlin-mode)

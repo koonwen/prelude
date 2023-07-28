@@ -78,7 +78,7 @@
 
 ;; enable on-the-fly syntax checking
 (if (fboundp 'global-flycheck-mode)
-    (global-flycheck-mode +1)
+    (global-flycheck-mode nil)
   (add-hook 'prog-mode-hook 'flycheck-mode))
 
 (provide 'prelude-programming)
