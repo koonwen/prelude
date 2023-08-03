@@ -4,13 +4,10 @@
 
 (prelude-require-packages
  '(beacon
-   ligature
    helm-swoop
    treemacs treemacs-projectile treemacs-magit))
 
-
-
-; Default Zoom
+;; Default Zoom
 (set-face-attribute 'default (selected-frame) :height 150)
 
 (defun vsplit-other-window ()
@@ -27,30 +24,31 @@
 (bind-key "C-x 2" #'vsplit-other-window)
 (bind-key "C-x 3" #'hsplit-other-window)
 
-; Automatic reloading of buffers
-;; (global-auto-revert-mode t)
-;; (setq global-auto-revert-non-file-buffers t)
-;; (add-to-list 'global-auto-revert-ignore-modes 'Buffer-menu-mode)
+;; Automatic reloading of buffers
+(global-auto-revert-mode t)
+(setq global-auto-revert-non-file-buffers t)
+(add-to-list 'global-auto-revert-ignore-modes 'Buffer-menu-mode)
 
 (if (version<= emacs-version "28.1") nil
   (use-package ligature
-  :config
-  (set-frame-font "Fira Code Retina-16" nil t)
-  ;; Enable the www ligature in every possible major mode
-  (ligature-set-ligatures 't '("www"))
-  ;; Enable ligatures in programming modes
-  (ligature-set-ligatures 'prog-mode '("www" "**" "***" "**/" "*>" "*/" "\\\\" "\\\\\\" "{-" "::"
-				       ":::" ":=" "!!" "!=" "!==" "-}" "----" "-->" "->" "->>"
-				       "-<" "-<<" "-~" "#{" "#[" "##" "###" "####" "#(" "#?" "#_"
-				       "#_(" ".-" ".=" ".." "..<" "..." "?=" "??" ";;" "/*" "/**"
-				       "/=" "/==" "/>" "//" "///" "&&" "||" "||=" "|=" "|>" "^=" "$>"
-				       "++" "+++" "+>" "=:=" "==" "===" "==>" "=>" "=>>" "<="
-				       "=<<" "=/=" ">-" ">=" ">=>" ">>" ">>-" ">>=" ">>>" "<*"
-				       "<*>" "<|" "<|>" "<$" "<$>" "<!--" "<-" "<--" "<->" "<+"
-				       "<+>" "<=" "<==" "<=>" "<=<" "<>" "<<" "<<-" "<<=" "<<<"
-				       "<~" "<~~" "</" "</>" "~@" "~-" "~>" "~~" "~~>" "%%"))
-  (global-ligature-mode 't))
-)
+    :ensure t
+    :config
+    (set-frame-font "Fira Code Retina-16" nil t)
+    ;; Enable the www ligature in every possible major mode
+    (ligature-set-ligatures 't '("www"))
+    ;; Enable ligatures in programming modes
+    (ligature-set-ligatures 'prog-mode '("www" "**" "***" "**/" "*>" "*/" "\\\\" "\\\\\\" "{-" "::"
+				         ":::" ":=" "!!" "!=" "!==" "-}" "----" "-->" "->" "->>"
+				         "-<" "-<<" "-~" "#{" "#[" "##" "###" "####" "#(" "#?" "#_"
+				         "#_(" ".-" ".=" ".." "..<" "..." "?=" "??" ";;" "/*" "/**"
+				         "/=" "/==" "/>" "//" "///" "&&" "||" "||=" "|=" "|>" "^=" "$>"
+				         "++" "+++" "+>" "=:=" "==" "===" "==>" "=>" "=>>" "<="
+				         "=<<" "=/=" ">-" ">=" ">=>" ">>" ">>-" ">>=" ">>>" "<*"
+				         "<*>" "<|" "<|>" "<$" "<$>" "<!--" "<-" "<--" "<->" "<+"
+				         "<+>" "<=" "<==" "<=>" "<=<" "<>" "<<" "<<-" "<<=" "<<<"
+				         "<~" "<~~" "</" "</>" "~@" "~-" "~>" "~~" "~~>" "%%"))
+    (global-ligature-mode 't))
+  )
 
 (blink-cursor-mode t)
 
