@@ -3,11 +3,72 @@
 (remove-hook 'prog-mode 'flycheck-mode)
 
 (prelude-require-packages
- '(helm-swoop
+ '(beacon
+   ligature
+   helm-swoop
    treemacs treemacs-projectile treemacs-magit))
 
+
+
+; Default Zoom
+(set-face-attribute 'default (selected-frame) :height 150)
+
+(defun vsplit-other-window ()
+  "Splits the window vertically and switches to that window."
+  (interactive)
+  (split-window-vertically)
+  (other-window 1 nil))
+(defun hsplit-other-window ()
+  "Splits the window horizontally and switches to that window."
+  (interactive)
+  (split-window-horizontally)
+  (other-window 1 nil))
+
+(bind-key "C-x 2" #'vsplit-other-window)
+(bind-key "C-x 3" #'hsplit-other-window)
+
+; Automatic reloading of buffers
+;; (global-auto-revert-mode t)
+;; (setq global-auto-revert-non-file-buffers t)
+;; (add-to-list 'global-auto-revert-ignore-modes 'Buffer-menu-mode)
+
+(if (version<= emacs-version "28.1") nil
+  (use-package ligature
+  :config
+  (set-frame-font "Fira Code Retina-16" nil t)
+  ;; Enable the www ligature in every possible major mode
+  (ligature-set-ligatures 't '("www"))
+  ;; Enable ligatures in programming modes
+  (ligature-set-ligatures 'prog-mode '("www" "**" "***" "**/" "*>" "*/" "\\\\" "\\\\\\" "{-" "::"
+				       ":::" ":=" "!!" "!=" "!==" "-}" "----" "-->" "->" "->>"
+				       "-<" "-<<" "-~" "#{" "#[" "##" "###" "####" "#(" "#?" "#_"
+				       "#_(" ".-" ".=" ".." "..<" "..." "?=" "??" ";;" "/*" "/**"
+				       "/=" "/==" "/>" "//" "///" "&&" "||" "||=" "|=" "|>" "^=" "$>"
+				       "++" "+++" "+>" "=:=" "==" "===" "==>" "=>" "=>>" "<="
+				       "=<<" "=/=" ">-" ">=" ">=>" ">>" ">>-" ">>=" ">>>" "<*"
+				       "<*>" "<|" "<|>" "<$" "<$>" "<!--" "<-" "<--" "<->" "<+"
+				       "<+>" "<=" "<==" "<=>" "<=<" "<>" "<<" "<<-" "<<=" "<<<"
+				       "<~" "<~~" "</" "</>" "~@" "~-" "~>" "~~" "~~>" "%%"))
+  (global-ligature-mode 't))
+)
+
+(blink-cursor-mode t)
+
+(use-package beacon
+  :config (beacon-mode 1)
+  :bind ("C-*" . beacon-blink)
+  :custom
+  (beacon-blink-when-focused 1)
+  (beacon-color "#f6aa11"))
+
 (use-package projectile
-  :custom (projectile-switch-project-action #'projectile-dired))
+  :custom ((projectile-switch-project-action #'projectile-dired)
+           (add-to-list 'projectile-globally-ignored-directories "_opam"))
+  :bind
+  ("<insert>" . projectile-commander)
+  ("<end>" . projectile-find-file)
+  ("<home>" . projectile-switch-project)
+  )
 
 (use-package helm-swoop
   :bind
