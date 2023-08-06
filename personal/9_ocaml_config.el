@@ -15,6 +15,7 @@
               ("C-c m d" . merlin-document)
               ("M-." . merlin-locate)
               ("M-," . merlin-pop-stack))
+  :config (setq merlin-error-after-save t)
   :custom
   (merlin-error-after-save t)
   (merlin-completion-with-doc t)
