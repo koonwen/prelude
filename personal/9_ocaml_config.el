@@ -21,3 +21,9 @@
   (merlin-completion-with-doc t)
   (merlin-locate-preference 1)
   (merlin-type-after-locate 1))
+
+(use-package ocamlformat
+  :bind ("S-<iso-lefttab>" . ocamlformat))
+
+(use-package dune-format
+  :hook (dune-mode dune-format-on-save-mode))

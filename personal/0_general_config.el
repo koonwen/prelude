@@ -4,11 +4,14 @@
 
 (prelude-require-packages
  '(beacon
+   projectile-ripgrep
    helm-swoop
    treemacs treemacs-projectile treemacs-magit))
 
 ;; Default Zoom
 (set-face-attribute 'default (selected-frame) :height 150)
+
+(bind-key "<end>" 'scroll-lock-mode)
 
 (defun vsplit-other-window ()
   "Splits the window vertically and switches to that window."
@@ -60,13 +63,9 @@
   (beacon-color "#f6aa11"))
 
 (use-package projectile
-  :custom ((projectile-switch-project-action #'projectile-dired)
-           (add-to-list 'projectile-globally-ignored-directories "_opam"))
   :bind
-  ("<insert>" . projectile-commander)
-  ("<end>" . projectile-find-file)
-  ("<home>" . projectile-switch-project)
-  )
+  ([remap overwrite-mode] . projectile-commander))
+(use-package projectile-ripgrep)
 
 (use-package helm-swoop
   :bind
@@ -75,7 +74,9 @@
   ("M-l" . helm-swoop-back-to-last-point))
 
 (use-package treemacs
-  :bind ("C-c `" . 'treemacs))
+  :bind
+  ("C-c `" . treemacs)
+  ("<home>" . treemacs-select-window))
 
 ;; https://ebzzry.com/en/emacs-pairs/
 ;; (bind-keys
