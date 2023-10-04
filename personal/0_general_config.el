@@ -4,6 +4,7 @@
 
 (prelude-require-packages
  '(beacon
+   twilight-bright-theme
    projectile-ripgrep
    helm-swoop
    treemacs treemacs-projectile treemacs-magit))
@@ -26,6 +27,19 @@
 
 (bind-key "C-x 2" #'vsplit-other-window)
 (bind-key "C-x 3" #'hsplit-other-window)
+
+(defun toggle-themes ()
+  "Allow quick toggling between dark and light themes."
+  (interactive)
+  (if (member 'twilight-bright custom-enabled-themes)
+      (progn
+	(load-theme 'flatland t)
+	(disable-theme 'twilight-bright))
+    (load-theme 'twilight-bright t)
+    (disable-theme 'flatland)))
+
+;; Keybindings
+(bind-key "C-c C-\\" #'toggle-themes)
 
 ;; Automatic reloading of buffers
 (global-auto-revert-mode t)
