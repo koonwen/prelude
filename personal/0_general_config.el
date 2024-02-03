@@ -12,7 +12,8 @@
 ;; Default Zoom
 (set-face-attribute 'default (selected-frame) :height 150)
 
-(bind-key "<end>" 'scroll-lock-mode)
+(setq prelude-super-keybindings nil)
+(setq crux-shell "/bin/fish")
 
 (defun vsplit-other-window ()
   "Splits the window vertically and switches to that window."
@@ -25,9 +26,9 @@
   (split-window-horizontally)
   (other-window 1 nil))
 
-(bind-key "C-x 2" #'vsplit-other-window)
-(bind-key "C-x 3" #'hsplit-other-window)
-
+;; Themes
+(use-package twilight-bright-theme)
+(use-package flatland-theme)
 (defun toggle-themes ()
   "Allow quick toggling between dark and light themes."
   (interactive)
@@ -40,6 +41,12 @@
 
 ;; Keybindings
 (bind-key "C-c C-\\" #'toggle-themes)
+(bind-key "C-c C-\\" #'toggle-themes)
+(bind-key "<end>" 'scroll-lock-mode)
+(bind-key "C-x 2" #'vsplit-other-window)
+(bind-key "C-x 3" #'hsplit-other-window)
+(bind-key "M-<right>" #'er/expand-region)
+(bind-key "M-<left>" #'er/contract-region)
 
 ;; Automatic reloading of buffers
 (global-auto-revert-mode t)
@@ -78,7 +85,8 @@
 
 (use-package projectile
   :bind
-  ([remap overwrite-mode] . projectile-commander))
+  ([remap overwrite-mode] . projectile-commander)
+  :custom (projectile-indexing-method 'hybrid))
 (use-package projectile-ripgrep)
 
 (use-package helm-swoop
@@ -87,10 +95,15 @@
   ("M-S" . helm-multi-swoop-projectile)
   ("M-l" . helm-swoop-back-to-last-point))
 
+;; (use-package helm-gtags
+;;   :hook (prog-mode helm-gtags-mode))
+
 (use-package treemacs
   :bind
-  ("C-c `" . treemacs)
-  ("<home>" . treemacs-select-window))
+  ("<home>" . treemacs))
+
+(use-package goto-last-change)
+(global-set-key "\C-x\C-\\" 'goto-last-change)
 
 ;; https://ebzzry.com/en/emacs-pairs/
 ;; (bind-keys

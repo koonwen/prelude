@@ -5,10 +5,10 @@
    dune dune-format
    merlin merlin-company merlin-eldoc merlin-iedit))
 
-(use-package ocp-index
-  :config (unbind-key "C-c C-t" ocp-index-keymap)
-  :bind (:map ocp-index-keymap
-              ("C-c t" . ocp-index-print-info-at-point)))
+;; (use-package ocp-index
+;;   :config (unbind-key "C-c C-t" ocp-index-keymap)
+;;   :bind (:map ocp-index-keymap
+;;               ("C-c t" . ocp-index-print-info-at-point)))
 
 (use-package merlin
   :bind (:map merlin-mode-map
@@ -23,7 +23,7 @@
   (merlin-type-after-locate 1))
 
 (use-package ocamlformat
-  :bind ("S-<iso-lefttab>" . ocamlformat))
+  :bind ("<backtab>" . ocamlformat))
 
 (use-package dune-format
-  :hook (dune-mode dune-format-on-save-mode))
+  :hook (dune-mode . dune-format-on-save-mode))
