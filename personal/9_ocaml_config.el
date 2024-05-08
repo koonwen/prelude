@@ -27,3 +27,5 @@
 
 (use-package dune-format
   :hook (dune-mode . dune-format-on-save-mode))
+
+(use-package dune-watch)

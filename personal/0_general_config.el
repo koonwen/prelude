@@ -4,9 +4,11 @@
 
 (prelude-require-packages
  '(beacon
+   multiple-cursors
    twilight-bright-theme
    projectile-ripgrep
    helm-swoop
+   goto-last-change
    treemacs treemacs-projectile treemacs-magit))
 
 ;; Default Zoom
@@ -76,6 +78,9 @@
 
 (blink-cursor-mode t)
 
+;; Start activity-watch-mode
+(global-activity-watch-mode t)
+
 (use-package beacon
   :config (beacon-mode 1)
   :bind ("C-*" . beacon-blink)
@@ -88,6 +93,7 @@
   ([remap overwrite-mode] . projectile-commander)
   :custom (projectile-indexing-method 'hybrid))
 (use-package projectile-ripgrep)
+
 
 (use-package helm-swoop
   :bind
@@ -104,6 +110,10 @@
 
 (use-package goto-last-change)
 (global-set-key "\C-x\C-\\" 'goto-last-change)
+
+(use-package multiple-cursors)
+(global-set-key (kbd "C-c m c") 'mc/edit-lines)
+(global-set-key (kbd "M-<mouse-1>") 'mc/add-cursor-on-click)
 
 ;; https://ebzzry.com/en/emacs-pairs/
 ;; (bind-keys
