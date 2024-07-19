@@ -1,18 +1,19 @@
-(setq read-process-output-max (* 1024 1024)) ;; 1mb
+;; sample `helm' configuration use https://github.com/emacs-helm/helm/ for details
+(use-package helm-xref)
+
+(helm-descbinds-mode -1)
+(which-key-mode)
+(add-hook 'c-mode-hook 'lsp)
+(add-hook 'c++-mode-hook 'lsp)
+(use-package yasnippet
+  :config (yas-global-mode t))
+
+(setq gc-cons-threshold (* 100 1024 1024)
+      read-process-output-max (* 1024 1024)
+      treemacs-space-between-root-nodes nil
+      company-idle-delay 0.0
+      company-minimum-prefix-length 1
+      lsp-idle-delay 0.1)  ;; clangd is fast
 
 (use-package lsp-mode
-  :ensure t
-  :defer t
-  :hook (lsp-mode . (lambda ()
-                      (let ((lsp-keymap-prefix "C-c l"))
-                        (lsp-enable-which-key-integration))))
-  :init
-  (setq lsp-keep-workspace-alive nil
-        lsp-signature-doc-lines 5
-        lsp-idle-delay 0.5
-        lsp-prefer-capf t
-        lsp-client-packages nil)
-  :config
-  (define-key lsp-mode-map (kbd "C-c l") lsp-command-map))
-;; if you want to change prefix for lsp-mode keybindings.
-(add-hook 'c-mode-hook 'lsp)
+  :bind-keymap ("C-c l" . lsp-command-map))
